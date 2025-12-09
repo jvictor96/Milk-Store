@@ -6,7 +6,7 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-@router.exception_handler(RequestValidationError)
+@router.exception_handler(RequestValidationError, ValueError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     return JSONResponse(
         status_code=400,
