@@ -4,6 +4,7 @@ from domain.schemas.batch_post_payload import BatchPostPayload
 from domain.schemas.batch_database_entry import BatchDatabaseEntry
 from typing import Optional
 
+# Implement Postgres connection
 class BatchRepository(ABC):
     @abstractmethod
     def get_batch_by_id(self, id: str) -> BatchDatabaseEntry:
@@ -24,7 +25,6 @@ class BatchRepository(ABC):
     def delete_batch(self, id: str):
         pass
 
-# TODO: implement available_liters = volume_liters - sum(consumed) filter
 class HardCodedBatches(BatchRepository):
 
     batches: dict[str, BatchDatabaseEntry] = {

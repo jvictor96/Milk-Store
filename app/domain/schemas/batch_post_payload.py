@@ -2,11 +2,12 @@ from typing import Annotated
 from pydantic import BaseModel, Field
 import datetime
 
-class BatchPostPayload(BaseModel):
+# TODO: Write OpenAPI examples
+class BatchPostPayload(BaseModel):         # TODO: move api models to api.schemas and remove dependencies on domain.schemas
     model_config = {"extra": "forbid"}
     batch_code: Annotated[str, Field(pattern='^SCH-\\d{8}-\\d{4}$')]
     received_at: Annotated[str, Field(pattern='^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$')]
-    shelf_life_days: int = Field(7, ge=1, le=30)   # TODO: documentation says "shelf-life typically ranges from 7 to 30 days"
+    shelf_life_days: int = Field(7, ge=1, le=30)
     volume_liters: float = Field(gt=0)
     fat_percent: float = Field(gt=0)
 

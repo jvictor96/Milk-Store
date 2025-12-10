@@ -3,7 +3,7 @@ import datetime
 from fastapi import HTTPException
 from api.schemas.near_expiry_filter_params import NearExpiryFilterParams
 from domain.schemas.order_database_entry import OrderDatabaseEntry
-from repositories.order_repository import OrderRepository
+from repositories.order_repository import OrderRepository                 # TODO: move the repository innterfaces to the domain package
 from domain.schemas.batch_database_entry import BatchDatabaseEntry
 from domain.schemas.batch_post_payload import BatchPostPayload
 from domain.schemas.batch_get_response import BatchGetResponse
@@ -29,7 +29,7 @@ def get_batch_by_id(id: str) -> BatchGetResponse:
 
 def consume(batch_id: str, consume_post_payload: OrderPostPayload) -> OrderPostPayload:
     if order_repository.get_order_by_id(consume_post_payload.order_id):
-        raise HTTPException(status_code=409, detail="Not unique order_id")    # TODO: mention later
+        raise HTTPException(status_code=409, detail="Not unique order_id")
     entry = batch_repository.get_batch_by_id(batch_id)
     if entry == None:
         raise HTTPException(status_code=404, detail="Item not found")
