@@ -10,15 +10,3 @@ class BatchGetResponse(BaseModel):
     volume_liters: float = Field(gt=0)
     fat_percent: float = Field(gt=0)
     available_liters: float = Field(ge=0)   # TODO: implement available_liters = volume_liters - sum(consumed)
-
-    def __init__(self, 
-                batch_code: str, 
-                received_at: str, 
-                volume_liters: int = 1000, 
-                fat_percent:float = 3.5, 
-                shelf_life_days:int = 7):
-        self.batch_code = batch_code
-        self.received_at = received_at
-        self.shelf_life_days = shelf_life_days
-        self.volume_liters = volume_liters
-        self.fat_percent = fat_percent
