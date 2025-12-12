@@ -1,0 +1,21 @@
+string_patterns:
+  batch_code: '^SCH-\d{8}-\d{4}$'
+  order_id: '^ORDER-\d{8}-\d{4}$'
+  received_at: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$'
+  deleted_at: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$'
+  expiry_date: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$'
+
+datetime_string_formats:
+  batch_code: '%Y%m%d'
+  order_id: '%Y%m%d'
+  received_at: '%Y-%m-%dT%H:%M:%SZ'
+  deleted_at: '%Y-%m-%dT%H:%M:%SZ'
+  expiry_date: '%Y-%m-%dT%H:%M:%SZ'
+
+api_parameters:
+  max_batch_shelf_life_days: 30
+  min_batch_shelf_life_days: 1
+  default_batch_shelf_life_days: 7
+  min_batch_volume_liters: 1
+  min_batch_fat_percentage: 0
+  min_order_volume_liters: 1

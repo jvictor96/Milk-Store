@@ -1,22 +1,13 @@
-from abc import ABC, abstractmethod
 from typing import Optional
-from domain.schemas.order_database_entry import OrderDatabaseEntry
-from domain.schemas.order_post_payload import OrderPostPayload
+from domain.ports.order_repository_port import OrderRepositoryPort
+from domain.schemas.order import Order
 
-class OrderRepository(ABC):
-    @abstractmethod
-    def post_order(self, batch: OrderPostPayload) -> OrderPostPayload:
-        pass
-    @abstractmethod
-    def get_order_by_id(self, batch: OrderPostPayload) -> OrderPostPayload:
-        pass
+class InMemoryOrders(OrderRepositoryPort):
 
-class HardCodedOrders(OrderRepository):
-
-    orders: dict[str, OrderDatabaseEntry] = {}
+    orders: dict[str, Order] = {}
     
-    def post_order(self, order: OrderDatabaseEntry) -> OrderDatabaseEntry:
+    def post_order(self, order: Order) -> Order:
         self.orders[order.order_id] = order
     
-    def get_order_by_id(self, id: str) -> Optional[OrderDatabaseEntry]:
+    def get_order_by_id(self, id: str) -> Optional[Order]:
         return self.orders[id] if id in self.orders else None

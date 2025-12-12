@@ -1,39 +1,39 @@
 from fastapi import Body, Query, Path
 from typing import Annotated
 from fastapi import APIRouter
-from repositories.order_repository import HardCodedOrders
-from domain.schemas.batch_post_payload import BatchPostPayload, check_batch_timestamps
-from domain.schemas.order_post_payload import OrderPostPayload, check_order_timestamps
+from api.mappers.batch_mapper import BatchMapper
+from api.mappers.order_mapper import OrderMapper
+from repositories.batch_repository import InMemoryBatches
+from repositories.order_repository import InMemoryOrders
+from api.schemas.batch_dto import BatchDTO
+from api.schemas.order_dto import OrderDto
 from domain.service import batch_service
 from .schemas.near_expiry_filter_params import NearExpiryFilterParams
-from repositories.batch_repository import HardCodedBatches
-from pydantic import AfterValidator
 
 router = APIRouter()
-batch_service.batch_repository = HardCodedBatches()
-batch_service.order_repository = HardCodedOrders()
+batch_service.batch_repository = InMemoryBatches()
+batch_service.order_repository = InMemoryOrders()
 
 @router.post("/api/batches/")
-async def post_batch(batch: Annotated[BatchPostPayload, Body(embed=True), AfterValidator(check_batch_timestamps)]):
-    return batch_service.post_batch(batch)
+async def post_batch(batch_dto: Annotated[BatchDTO, Body()]):
+    return BatchMapper.to_dto(batch_service.post_batch(BatchMapper.to_domain(batch_dto)))
 
 @router.get("/api/batches/")
 async def get_active_batches():
-    return batch_service.get_active_batches()
+    return [BatchMapper.to_dto(batch) for batch in batch_service.get_active_batches()]
 
-# TODO: validate date format
-@router.get("/api/batches/{id}")
-async def get_batch_by_id(id: Annotated[str, Path(pattern='^SCH-\\d{8}-\\d{4}$')]):
-    return batch_service.get_batch_by_id(id)
+@router.get("/api/batches/{id}")       # TODO: remove these strings
+async def get_batch_by_id(id: Annotated[str, Path(pattern='^SCH-\\d{8}-\\d{4}$', example="SCH-20251208-0001")]):
+    return BatchMapper.to_dto(batch_service.get_batch_by_id(id))
 
 @router.post("/api/batches/{id}/consume")
-async def consume(id: str, consume_post_payload: Annotated[OrderPostPayload, Body(embed=True), AfterValidator(check_order_timestamps)]):
-    return batch_service.consume(id, consume_post_payload)
+async def consume(id: str, order_dto: Annotated[OrderDto, Body()]):
+    return OrderMapper.to_dto(batch_service.consume(id, OrderMapper.to_domain(order_dto, id)))
 
 @router.get("/api/batches/near-expiry/")
 async def get_near_expiry(filter_query: Annotated[NearExpiryFilterParams, Query()]):
-    return batch_service.get_near_expiry(filter_query)
+    return [BatchMapper.to_dto(batch) for batch in batch_service.get_near_expiry(filter_query.n_days)]
 
 @router.delete("/api/batches/{id}")
-def delete_batch_by_id(id: str):
+def delete_batch_by_id(id: Annotated[str, Path(pattern='^SCH-\\d{8}-\\d{4}$', example="SCH-20251208-0001")]):
     batch_service.delete_batch_by_id(id)
