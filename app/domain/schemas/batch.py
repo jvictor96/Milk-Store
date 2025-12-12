@@ -13,8 +13,9 @@ class Batch():
     def calculate_expiry_date(received_at: datetime.datetime, shelf_life_days: datetime.timedelta) -> datetime.datetime:
         return received_at + shelf_life_days
     
-    def calculate_shelf_life_days(self) -> int:
+    def get_shelf_life_days_as_int(self) -> int:
         return (self.expiry_date - self.received_at).days
+    
 
     def __init__(self,
                  batch_code: str,

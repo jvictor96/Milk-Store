@@ -1,6 +1,8 @@
 import datetime
 
-from domain.exceptions import ConflictException, NotFoundException, NotUniqueException
+from domain.exceptions.not_found_exception import NotFoundException
+from domain.exceptions.not_unique_exception import NotUniqueException
+from domain.exceptions.conflict_exception import ConflictException
 from domain.ports.batch_repository_port import BatchRepositoryPort
 from domain.ports.order_repository_port import OrderRepositoryPort
 from domain.schemas.batch import Batch
@@ -25,16 +27,18 @@ def get_batch_by_id(id: str) -> Batch:
         raise NotFoundException("batch")
     return batch
 
-def consume(batch_id: str, order: Order) -> Order:    # TODO: validate if the order date is after the batch date
-    if order_repository.get_order_by_id(order.order_id):
+def consume(batch_id: str, order: Order) -> Order:
+    if order_repository.get_order_by_id(order.order_id):    #TODO: implement locks
         raise NotUniqueException("order_id")
-    entry = batch_repository.get_batch_by_id(batch_id)
-    if entry == None:
+    batch = batch_repository.get_batch_by_id(batch_id)
+    if batch == None or batch.deleted_at:
         raise NotFoundException("Batch")
-    if entry.consumed + order.qty > entry.volume_liters:
+    if batch.consumed + order.qty > batch.volume_liters:
         raise ConflictException("Consumed volume exceeds liters available")
-    entry.consumed = entry.consumed + order.qty
-    batch_repository.update_batch(entry)
+    if order.order_id_date < order.batch_code_date:
+        raise ConflictException("order is registered before batch")
+    batch.consumed = batch.consumed + order.qty
+    batch_repository.update_batch(batch)
     order_repository.post_order(order)
     order.batch_code = batch_id
     return order

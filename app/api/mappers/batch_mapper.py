@@ -7,7 +7,7 @@ class BatchMapper():
     @staticmethod
     def to_domain(batch: BatchDTO) -> Batch:
         return Batch(
-            batch.batch_code, 
+            batch.batch_code,
             batch.get_received_at_as_datetime(), 
             batch.volume_liters, 
             batch.fat_percent, 
@@ -19,7 +19,8 @@ class BatchMapper():
         return BatchDTO(
             batch_code=batch.batch_code,
             received_at=batch.received_at.strftime(settings.datetime_string_formats.received_at),
-            shelf_life_days=batch.calculate_shelf_life_days(),
+            expiry_date=batch.expiry_date.strftime(settings.datetime_string_formats.expiry_date),
+            shelf_life_days=batch.get_shelf_life_days_as_int(),
             volume_liters=batch.volume_liters,
             fat_percent=batch.fat_percent,
             available_liters=batch.volume_liters - batch.consumed,
