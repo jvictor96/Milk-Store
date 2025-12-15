@@ -1,2 +1,5 @@
 fastapi[standard]
 yaml-settings-pydantic
+psycopg2-binary
+sqlmodel
+alembic

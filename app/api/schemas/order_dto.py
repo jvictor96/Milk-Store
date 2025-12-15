@@ -9,12 +9,12 @@ class OrderDto(BaseModel):
         "json_schema_extra": {
             "example": 
                 {
-                    "order_id": "ORDER-20251210-1234",
-                    "qty": 100
+                    "order_id": settings.examples.order_id,
+                    "qty": settings.examples.qty
                 }
             
         }}
-    qty: float = Field(7, ge=1)
+    qty: float = Field(7, gt=0)
     order_id: Annotated[str | None, Field(pattern='^ORDER-\\d{8}-\\d{4}$')]
     batch_code: Annotated[str | None, Field(None, pattern='^SCH-\\d{8}-\\d{4}$')]
 

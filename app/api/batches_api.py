@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import APIRouter
 from api.mappers.batch_mapper import BatchMapper
 from api.mappers.order_mapper import OrderMapper
-from repositories.batch_repository import InMemoryBatches
-from repositories.order_repository import InMemoryOrders
+from repositories.in_memory_batches import InMemoryBatches
+from repositories.in_memory_orders import InMemoryOrders
 from api.schemas.batch_dto import BatchDTO
 from api.schemas.order_dto import OrderDto
 from domain.service import batch_service

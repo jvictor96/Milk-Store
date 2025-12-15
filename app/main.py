@@ -6,6 +6,7 @@ from api import batches_api
 from domain.exceptions.conflict_exception import ConflictException
 from domain.exceptions.not_found_exception import NotFoundException
 from domain.exceptions.not_unique_exception import NotUniqueException
+import repositories.postgres.postgres_connection
 
 # TODO: Write tests
 # TODO: Write the README

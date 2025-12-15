@@ -20,6 +20,3 @@ class BatchRepositoryPort(ABC):
     @abstractmethod
     def update_batch(self, batch: Batch) -> Batch:
         pass
-    @abstractmethod
-    def delete_batch(self, id: str):
-        pass

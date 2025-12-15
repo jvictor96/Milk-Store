@@ -9,11 +9,11 @@ class BatchDTO(BaseModel):
         "json_schema_extra": {
             "example": 
                 {
-                    "batch_code": "SCH-20251210-1234",
-                    "received_at": "2025-12-10T08:30:00Z",
-                    "volume_liters": 1000,
-                    "fat_percent": 3.5,
-                    "shelf_life_days": 30
+                    "batch_code": settings.examples.batch_code,
+                    "received_at": settings.examples.received_at,
+                    "volume_liters": settings.examples.volume_liters,
+                    "fat_percent": settings.examples.fat_percent,
+                    "shelf_life_days": settings.examples.shelf_life_days
                 }
             
         }}

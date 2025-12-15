@@ -22,7 +22,7 @@ class Batch():
                  received_at: datetime.datetime,
                  volume_liters: float,
                  fat_percent: float,
-                 shelf_life_days: datetime.timedelta,):
+                 shelf_life_days: datetime.timedelta):
         self.batch_code = batch_code
         self.received_at = received_at
         self.volume_liters = volume_liters

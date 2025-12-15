@@ -8,6 +8,10 @@ class ExampleSettings(BaseModel):
     received_at: str
     deleted_at: str
     expiry_date: str
+    volume_liters: float
+    fat_percent: float
+    shelf_life_days: int
+    qty: float
 
 class StringPatternSettings(BaseModel):
     batch_code: str
@@ -31,14 +35,23 @@ class ApiParametersSettings(BaseModel):
     min_batch_fat_percentage: float
     min_order_volume_liters: float
 
+class DatabaseConnectionSettings(BaseModel):
+    user: str
+    password: str
+    host: str
+    port: int
+    name: str
+
 class Settings(BaseYamlSettings):
     string_patterns: StringPatternSettings
     api_parameters: ApiParametersSettings
     datetime_string_formats: DatetimeStringFormats
     examples: ExampleSettings
+    database_connection: DatabaseConnectionSettings
 
     model_config = SettingsConfigDict(
-        yaml_files = "./properties.yaml"
+        yaml_files = "./properties.yaml",
+        env_nested_delimiter="__"
     )
 
 settings = Settings()

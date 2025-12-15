@@ -4,6 +4,10 @@ examples:
   received_at: '2025-12-08T08:30:00Z'
   deleted_at: '2025-12-08T08:30:00Z'
   expiry_date: '2025-19-08T08:30:00Z'
+  volume_liters: 1000
+  fat_percent: 3.5
+  shelf_life_days: 30
+  qty: 100
 
 string_patterns:
   batch_code: '^SCH-\d{8}-\d{4}$'
@@ -26,3 +30,10 @@ api_parameters:
   min_batch_volume_liters: 1
   min_batch_fat_percentage: 0
   min_order_volume_liters: 1
+
+database_connection:
+  user: user
+  password: password
+  host: localhost
+  port: 5432
+  name: milk-store

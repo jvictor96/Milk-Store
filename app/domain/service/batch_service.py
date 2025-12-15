@@ -49,4 +49,8 @@ def get_near_expiry(n_days: int) -> list[Batch]:
     return batch_repository.get_active_batches_until_date(check_until_day)
 
 def delete_batch_by_id(id: str):
-    batch_repository.delete_batch(id)
+    batch = batch_repository.get_batch_by_id(id)
+    if not batch:
+        raise NotFoundException("batch")
+    batch.deleted_at = datetime.datetime.now()
+    batch_repository.update_batch(batch)
