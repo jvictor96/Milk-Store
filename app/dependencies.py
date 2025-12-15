@@ -1,57 +1,24 @@
-from pydantic_settings import SettingsConfigDict
-from pydantic import BaseModel
-from yaml_settings_pydantic import BaseYamlSettings
+from domain.ports.batch_repository_port import BatchRepositoryPort
+from domain.ports.order_repository_port import OrderRepositoryPort
+from repositories.in_memory_batches import InMemoryBatches
+from repositories.in_memory_orders import InMemoryOrders
+from repositories.postgres.batches_adapter import BatchesAdapter
+from repositories.postgres.orders_adapter import OrdersAdapter
+from config import settings
 
-class ExampleSettings(BaseModel):
-    batch_code: str
-    order_id: str
-    received_at: str
-    deleted_at: str
-    expiry_date: str
-    volume_liters: float
-    fat_percent: float
-    shelf_life_days: int
-    qty: float
+di_container = {}
 
-class StringPatternSettings(BaseModel):
-    batch_code: str
-    order_id: str
-    received_at: str
-    deleted_at: str
-    expiry_date: str
+di_container["standalone"] = {
+    BatchRepositoryPort: InMemoryBatches,
+    OrderRepositoryPort: InMemoryOrders
+}
 
-class DatetimeStringFormats(BaseModel):
-    batch_code: str
-    order_id: str
-    received_at: str
-    deleted_at: str
-    expiry_date: str
+di_container["integrated"] = {
+    BatchRepositoryPort: BatchesAdapter,
+    OrderRepositoryPort: OrdersAdapter
+}
 
-class ApiParametersSettings(BaseModel):
-    max_batch_shelf_life_days: int
-    min_batch_shelf_life_days: int
-    default_batch_shelf_life_days: int
-    min_batch_volume_liters: float
-    min_batch_fat_percentage: float
-    min_order_volume_liters: float
+env_container = {}
 
-class DatabaseConnectionSettings(BaseModel):
-    user: str
-    password: str
-    host: str
-    port: int
-    name: str
-
-class Settings(BaseYamlSettings):
-    string_patterns: StringPatternSettings
-    api_parameters: ApiParametersSettings
-    datetime_string_formats: DatetimeStringFormats
-    examples: ExampleSettings
-    database_connection: DatabaseConnectionSettings
-
-    model_config = SettingsConfigDict(
-        yaml_files = "./properties.yaml",
-        env_nested_delimiter="__"
-    )
-
-settings = Settings()
+for port, adapter in di_container[settings.environment].items():
+    env_container[port] = adapter()

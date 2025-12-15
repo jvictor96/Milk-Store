@@ -2,7 +2,7 @@ import datetime
 from domain.schemas.batch import Batch
 from domain.ports.batch_repository_port import BatchRepositoryPort
 from typing import Optional
-from dependencies import settings
+from config import settings
 
 class InMemoryBatches(BatchRepositoryPort):
 
@@ -35,5 +35,5 @@ class InMemoryBatches(BatchRepositoryPort):
     def post_batch(self, batch: Batch) -> Batch:
         self.batches[batch.batch_code] = batch
 
-    def update_batch(self, batch: Batch) -> Batch:
-        self.batches[batch.batch_code] = batch
+    def update_batch(self, batch_id: str, batch: Batch) -> Batch:
+        self.batches[batch_id] = batch

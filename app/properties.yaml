@@ -1,3 +1,5 @@
+environment: standalone
+
 examples:
   batch_code: "SCH-20251208-0001"
   order_id: "ORDER-20251208-0001"

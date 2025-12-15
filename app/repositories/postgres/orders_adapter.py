@@ -7,7 +7,7 @@ from domain.ports.order_repository_port import OrderRepositoryPort
 from domain.schemas.order import Order
 from .postgres_connection import engine
 
-class InMemoryOrders(OrderRepositoryPort):
+class OrdersAdapter(OrderRepositoryPort):
     
     def post_order(self, batch: Order) -> Order:
         batch_entity = OrderMapper.to_entity(batch)

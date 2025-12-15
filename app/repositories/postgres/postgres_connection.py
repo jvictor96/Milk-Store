@@ -1,6 +1,5 @@
-from sqlmodel import SQLModel, Session, create_engine
-from dependencies import settings
-from repositories.schemas.batch_entity import BatchEntity
+from sqlmodel import SQLModel, create_engine
+from config import settings
 
 # Define your database credentials (replace with your actual info)
 DB_USER = settings.database_connection.user

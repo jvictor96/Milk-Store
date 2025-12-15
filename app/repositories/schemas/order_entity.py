@@ -1,7 +1,7 @@
 import datetime
 from sqlmodel import Field, SQLModel
 
-from dependencies import settings
+from config import settings
 
 
 class OrderEntity(SQLModel, table=True):

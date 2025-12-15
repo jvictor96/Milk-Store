@@ -1,6 +1,6 @@
 from typing import Annotated
 from pydantic import BaseModel, Field, model_validator
-from dependencies import settings
+from config import settings
 import datetime
 
 class BatchDTO(BaseModel):

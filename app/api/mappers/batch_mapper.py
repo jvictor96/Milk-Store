@@ -1,6 +1,6 @@
 from api.schemas.batch_dto import BatchDTO
 from domain.schemas.batch import Batch
-from dependencies import settings
+from config import settings
 
 
 class BatchMapper():

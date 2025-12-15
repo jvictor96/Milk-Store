@@ -1,7 +1,7 @@
 from typing import Annotated
 from pydantic import BaseModel, Field, model_validator
 import datetime
-from dependencies import settings
+from config import settings
 
 class OrderDto(BaseModel):
     model_config = {

@@ -1,7 +1,7 @@
 import datetime
 from sqlmodel import Field, SQLModel
 from typing import Annotated
-from dependencies import settings
+from config import settings
 
 class BatchEntity(SQLModel, table=True):
     batch_code: str = Field(regex=settings.string_patterns.batch_code, primary_key=True)
