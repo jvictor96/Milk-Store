@@ -4,6 +4,7 @@ Was just almost the simplest implementation of an api that does nothing and was 
 
 ## Structure
 
+```
 ├── requirements.py
 ├── .gitignore
 └── app
@@ -17,6 +18,7 @@ Was just almost the simplest implementation of an api that does nothing and was 
     └── routers
         ├── exception_handler.py
         └── item.py
+```
 
 ## Architecture and theory
 
@@ -46,6 +48,7 @@ This was the fist attempt to implement the specification. Manual tests were run 
 
 ## Structure
 
+```
 ├── requirements.py
 ├── .gitignore
 └── app
@@ -68,6 +71,7 @@ This was the fist attempt to implement the specification. Manual tests were run 
         ├── batches_api.py
         └── schemas
              └── near_expiry_filter_params.py
+```
 
 1: many api schemas were here because I wanted to keep the domain packge without any import from api and I lacked mappers yet, so I worked with the post payload models at the service. The domain was isolated, but poorly organized.
 
@@ -118,6 +122,7 @@ Several improvements but mainly moving API's schemas to the API package, writing
 
 ## Structure
 
+```
 ├── requirements.py
 ├── .gitignore
 └── app
@@ -150,6 +155,7 @@ Several improvements but mainly moving API's schemas to the API package, writing
              ├── batch_dto.py
              ├── near_expiry_filter_params.py
              └── order_dto.py
+```
 
 # 7eb06ac add examples, several minor formatting improvements, handle errors
 
