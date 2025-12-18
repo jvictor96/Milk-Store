@@ -42,7 +42,7 @@ At routers/item.py there was a fragment to use ItemRepository reguardless the im
 At main.py there was a fragment to inject HardCodedItems
 
 
-# ade898a business rules
+## ade898a business rules
 
 This was the fist attempt to implement the specification. Manual tests were run and the API worked as expected at the following commit. TDD was not considered at this point and the models were not well separated.
 
@@ -157,14 +157,14 @@ Several improvements but mainly moving API's schemas to the API package, writing
              └── order_dto.py
 ```
 
-# 7eb06ac add examples, several minor formatting improvements, handle errors
+## 7eb06ac add examples, several minor formatting improvements, handle errors
 
 OpenAPI is much better now
 
-# da59d9a create sqlmodel models and repository and use properties examples all across
+## da59d9a create sqlmodel models and repository and use properties examples all across
 
 repositories/mappers and repositories/schemas were added to write model code that bootstraps sqlmodel and keep the domain package free of it. Also repositories/postgres was added. Clean Architecture for ever
 
-# 524e2a0 add tests
+## 524e2a0 add tests
 
 tests finally added. All knowledge about TDD, CI, extreme programming, agile and refactoring were not known before, so I had huge commits and no tests so far.
