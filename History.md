@@ -42,7 +42,7 @@ At routers/item.py there was a fragment to use ItemRepository reguardless the im
 At main.py there was a fragment to inject HardCodedItems
 
 
-## ade898a business rules
+# ade898a business rules
 
 This was the fist attempt to implement the specification. Manual tests were run and the API worked as expected at the following commit. TDD was not considered at this point and the models were not well separated.
 
@@ -111,7 +111,7 @@ If I were using TDD, CI, extreme programming and agile I'd have written tests fo
 
 Repository structure was prety much the same, with the port declared at the repository layer, which is bad for my domain isolation as Clear architecture states.
 
-# 6941e72 test validation
+## 6941e72 test validation
 
 Same structure but works. Domain logic wasn't touched deeply since, maybe this domain is to simple and I can't use advanced DDD to make good diagrams, but being isolated might help in having a clear code to express the business logic.
 
