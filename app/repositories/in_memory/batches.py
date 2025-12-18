@@ -14,6 +14,13 @@ class InMemoryBatches(BatchRepositoryPort):
             settings.examples.fat_percent,
             datetime.timedelta(days=settings.examples.shelf_life_days)
         ), 
+        settings.examples.batch_code_to_delete_during_tests: Batch(
+            settings.examples.batch_code_to_delete_during_tests, 
+            datetime.datetime.strptime(settings.examples.received_at, settings.datetime_string_formats.received_at),
+            settings.examples.volume_liters,
+            settings.examples.fat_percent,
+            datetime.timedelta(days=settings.examples.shelf_life_days)
+        ), 
     }
     
     def get_batch_by_id(self, id: str) -> Optional[Batch]:

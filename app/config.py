@@ -4,6 +4,9 @@ from yaml_settings_pydantic import BaseYamlSettings
 
 class ExampleSettings(BaseModel):
     batch_code: str
+    batch_code_to_delete_during_tests: str
+    batch_code_to_create_during_tests: str
+    batch_code_to_test_near_expiry: str
     order_id: str
     received_at: str
     deleted_at: str

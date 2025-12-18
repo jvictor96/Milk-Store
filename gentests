@@ -1,0 +1,23 @@
+#!/bin/bash
+python -c "
+from $1 import $2
+import inspect
+params = inspect.signature($2.__init__).parameters
+init_args = ', '.join(f'{name}=...' for name in params if name != 'self')
+
+print('from $1 import $2')
+print('import pytest')
+print()
+
+print('@pytest.fixture')
+print(f'def ${1##*.}():')
+print(f'\treturn $2({init_args})')
+print()
+
+for method in [m for m in dir($2) if m[0] != '_']:
+    print(f'def test_{method}(${1##*.}):')
+    params = inspect.signature(getattr($2,method)).parameters
+    args = ', '.join(f'{name}=...' for name in params if name != 'self')
+    print(f'\tpass # ${1##*.}.{method}({args})')
+    print()
+" | tee "test_${1##*.}.py"      # That's such a beautiful ~~parameter expansion

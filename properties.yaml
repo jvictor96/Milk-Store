@@ -2,6 +2,9 @@ environment: standalone
 
 examples:
   batch_code: "SCH-20251208-0001"
+  batch_code_to_delete_during_tests: "SCH-%now-0002"
+  batch_code_to_create_during_tests: "SCH-%now-0003"
+  batch_code_to_test_near_expiry: "SCH-%now-0004"
   order_id: "ORDER-20251208-0001"
   received_at: '2025-12-08T08:30:00Z'
   deleted_at: '2025-12-08T08:30:00Z'
