@@ -107,7 +107,7 @@ def delete_batch_by_id(id: str):
     batch_service.delete_batch_by_id(id)
 ```
 
-If I were using TDD, CI, extreme programming and agile I'd have written tests for post_batch, get_active_batches, get_batch_by_id, consume, get_near_expiry and delete_batch_by_id immediatelly.
+If I were using TDD, CI, extreme programming and agile I'd have written tests for `post_batch`, `get_active_batches`, `get_batch_by_id`, `consume`, `get_near_expiry` and `delete_batch_by_id` immediatelly.
 
 Repository structure was prety much the same, with the port declared at the repository layer, which is bad for my domain isolation as Clear architecture states.
 
@@ -118,7 +118,7 @@ Same structure but works. Domain logic wasn't touched deeply since, maybe this d
 
 # 8785ea6 isolate domain using repository adapters and read properties from yaml
 
-Several improvements but mainly moving API's schemas to the API package, writing mappers, putting persistence ports at the domain layer, writing my domain exceptions and putting hardcoded values at properties.yaml. Clean Architecture is here now.
+Several improvements but mainly moving API's schemas to the API package, writing mappers, putting persistence ports at the domain layer, writing my domain exceptions and putting hardcoded values at `properties.yaml`. Clean Architecture is here now.
 
 ## Structure
 
@@ -163,8 +163,30 @@ OpenAPI is much better now
 
 ## da59d9a create sqlmodel models and repository and use properties examples all across
 
-repositories/mappers and repositories/schemas were added to write model code that bootstraps sqlmodel and keep the domain package free of it. Also repositories/postgres was added. Clean Architecture for ever
+`repositories/mappers` and `repositories/schemas` were added to write model code that bootstraps sqlmodel and keep the domain package free of it. Also `repositories/postgres` was added. Clean Architecture for ever
 
 ## 524e2a0 add tests
 
-tests finally added. All knowledge about TDD, CI, extreme programming, agile and refactoring were not known before, so I had huge commits and no tests so far.
+tests finally added. All knowledge about TDD, CI, extreme programming, agile and refactoring were not known before, so I had huge commits and no tests so far. Also dependency injection was sorted and config moved to `config.py`.
+
+``` python
+# dependencies.py 
+
+di_container = {}
+
+di_container["standalone"] = {
+    BatchRepositoryPort: InMemoryBatches,
+    OrderRepositoryPort: InMemoryOrders
+}
+
+di_container["integrated"] = {
+    BatchRepositoryPort: BatchesAdapter,
+    OrderRepositoryPort: OrdersAdapter
+}
+
+env_container = {}
+
+for port, adapter in di_container[settings.environment].items():
+    env_container[port] = adapter()
+
+```
