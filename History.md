@@ -163,7 +163,7 @@ OpenAPI is much better now
 
 ## da59d9a create sqlmodel models and repository and use properties examples all across
 
-`repositories/mappers` and `repositories/schemas` were added to write model code that bootstraps sqlmodel and keep the domain package free of it. Also `repositories/postgres` was added. Clean Architecture for ever
+`repositories/mappers` and `repositories/schemas` were added to write model code that bootstraps sqlmodel and keep the domain package free of it. Also `repositories/postgres` was added. Clean Architecture for ever. Also `compose.yaml` was instroduced to create the database.
 
 ## 524e2a0 add tests
 
